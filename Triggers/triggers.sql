@@ -212,7 +212,7 @@ declare count integer;
 begin
 	select count(*) INTO count from delivery_complaint, shop_complaint, comment_complaint where delivery_complaint.id = shop_complaint.id or delivery_complaint.id = comment_complaint.id or shop_complaint.id = comment_complaint.id;
 	if count > 0 then
-		raise exception 'Constraint Violated, Comment must either be a reply or a review';
+		raise exception 'Constraint Violated, Complaint must either be a comment related, delivery related or shop related' ;
 		return null;
 	end if;
 	return new;
@@ -227,7 +227,7 @@ declare count integer;
 begin
 	select count(*) INTO count from delivery_complaint, shop_complaint, comment_complaint where delivery_complaint.id = shop_complaint.id or delivery_complaint.id = comment_complaint.id or shop_complaint.id = comment_complaint.id;
 	if count > 0 then
-		raise exception 'Constraint Violated, Comment must either be a reply or a review';
+		raise exception 'Constraint Violated, Complaint must either be a comment related, delivery related or shop related' ;
 		return null;
 	end if;
 	return new;
@@ -242,7 +242,7 @@ declare count integer;
 begin
 	select count(*) INTO count from delivery_complaint, shop_complaint, comment_complaint where delivery_complaint.id = shop_complaint.id or delivery_complaint.id = comment_complaint.id or shop_complaint.id = comment_complaint.id;
 	if count > 0 then
-		raise exception 'Constraint Violated, Comment must either be a reply or a review';
+		raise exception 'Constraint Violated, Complaint must either be a comment related, delivery related or shop related' ;
 		return null;
 	end if;
 	return new;
