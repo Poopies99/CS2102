@@ -14,8 +14,6 @@ drop trigger complaint_constraint2 on delivery_complaint;
 drop trigger complaint_constraint3 on comment_complaint;
 drop trigger complaint_constraint4 on shop_complaint;
 
-
--- Check with Prof
 create or replace function trigger1()
 returns trigger as $$
 declare count_unique integer;
