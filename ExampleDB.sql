@@ -116,8 +116,7 @@ INSERT INTO delivery_complaint (id, order_id, shop_id, product_id, sell_timestam
 ;
 
 INSERT INTO shop_complaint (id, shop_id) VALUES
-(2, 1),
-(3, 2)
+(2, 1)
 ;
 
 INSERT INTO comment_complaint (id, comment_id) VALUES
