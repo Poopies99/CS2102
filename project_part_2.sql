@@ -48,7 +48,7 @@ create or replace function view_comments(shop_id_p INTEGER, product_id_p INTEGER
 
     end; $$
 
-
+;
 -- Qn 2.2 (2)
 
 create or replace function get_most_returned_products_from_manufacturer(manufacturer_id INTEGER, n INTEGER)
@@ -86,7 +86,7 @@ create or replace function get_most_returned_products_from_manufacturer(manufact
 
     end; $$
 
-
+;
 
 -- Qn 2.2 (3)
 
