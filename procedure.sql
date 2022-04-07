@@ -4,6 +4,7 @@ DECLARE
 orderID integer;
 	currentPrice integer:=0;
 	totalSum integer:=0;
+	couponDiscount integer:=0;
 BEGIN
 FOR i IN array_lower(product_ids, 1)..array_upper(product_ids,1)
 	LOOP
@@ -16,6 +17,10 @@ FOR i IN array_lower(product_ids, 1)..array_upper(product_ids,1)
 		INSERT INTO orderline(order_id, shop_id, product_id, sell_timestamp, quantity, shipping_cost, status) VALUES(orderID, shop_ids[i], product_ids[i], sell_timestamps[i], quantities[i], shipping_costs[i], 'being_processed');
 UPDATE sells SET quantity = quantity - quantities[i] WHERE shop_id = shop_ids[i] AND product_id = product_ids[i];
 END LOOP;
+	IF EXISTS (SELECT reward_amount FROM coupon_batch WHERE id = coupon_id) THEN
+SELECT reward_amount into couponDiscount FROM coupon_batch WHERE id = coupon_id;
+UPDATE orders SET payment_amount = payment_amount - couponDiscount WHERE id = orderID;
+END IF;
 END
 $$ LANGUAGE plpgsql;
 
@@ -37,7 +42,8 @@ INSERT INTO reply_version(reply_id, reply_timestamp, content) SELECT reply_id.id
 $$ LANGUAGE sql;
 
 INSERT INTO issued_coupon(user_id, coupon_id) VALUES(3,2);
---CALL place_order(3, null, 'Bishan', '{1,2}', '{1,3}', '{"2022-04-04 16:07:14.426782", "2022-04-04 16:07:14.426782"}', '{3, 3}', '{1,2}');
+--CALL place_order(3, 2, 'Bishan', '{1}', '{1}', '{"2022-04-04 16:07:14.426782"}', '{1}', '{1}');
 CALL place_order(3, 2, 'Bishan', '{1,2}', '{1,3}', '{"2022-04-04 16:07:14.426782", "2022-04-04 16:07:14.426782"}', '{3, 3}', '{1,2}');
+CALL place_order(3, null, 'Bishan', '{1,2}', '{1,3}', '{"2022-04-04 16:07:14.426782", "2022-04-04 16:07:14.426782"}', '{3, 3}', '{1,2}');
 CALL review(3, 4, 1, 1,'2022-04-04 16:07:14.426782','test',5,'2022-04-04 16:07:14.426782');
 CALL reply(3, 5, 'WOW', '2022-04-04 16:07:14.426782');
