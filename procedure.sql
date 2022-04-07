@@ -28,6 +28,8 @@ WITH comment_id AS (INSERT INTO comment(user_id) values(user_id) RETURNING id),
 INSERT INTO reply_version(reply_id, reply_timestamp, content) SELECT reply_id.id, reply_timestamp, content FROM reply_id;
 $$ LANGUAGE sql;
 
+BEGIN TRANSACTION;
 CALL place_order(3, null, 'Bishan', '{1,2}', '{1,3}', '{"2022-04-04 16:07:14.426782", "2022-04-04 16:07:14.426782"}', '{1, 1}', '{1,2}');
 CALL review(3, 4, 1, 1,'2022-04-04 16:07:14.426782','test',5,'2022-04-04 16:07:14.426782');
 CALL reply(3, 5, 'WOW', '2022-04-04 16:07:14.426782');
+COMMIT;

@@ -36,7 +36,7 @@ returns trigger as $$
 declare count_unique integer;
 		count_order integer;	
 begin
-	select count(distinct orders.id) INTO count_unique from orders join orderline on orders.id = orderline.shop_id;
+	select count(distinct orders.id) INTO count_unique from orders join orderline on orders.id = orderline.order_id;
 	select count(distinct orders.id) INTO count_order from orders;
 	if count_order > count_unique then
 		raise notice 'Constraint Violated, Each order needs to include one or more product';

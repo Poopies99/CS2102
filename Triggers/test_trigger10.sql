@@ -1,3 +1,5 @@
+Delete from complaint;
+Delete from delivery_complaint;
 Delete from comment;
 Delete from review;
 Delete from review_version;
@@ -13,8 +15,8 @@ Delete from manufacturer;
 Delete from orders;
 Delete from issued_coupon;
 Delete from coupon_batch;
-Delete from users;
 Delete from refund_request;
+Delete from users;
 
 BEGIN TRANSACTION;
 INSERT INTO shop(id, name) VALUES 
