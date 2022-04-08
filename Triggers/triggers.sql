@@ -1,6 +1,5 @@
 drop trigger shop_constraint on sells;
-drop trigger order_constraint1 on orderline;
-drop trigger order_constraint2 on orderline;
+drop trigger order_constraint on orderline;
 drop trigger coupon_constraint on orders;
 drop trigger refund_constraint1 on refund_request;
 drop trigger refund_constraint2 on refund_request;
@@ -32,14 +31,13 @@ $$ language plpgsql;
 
 create constraint trigger shop_constraint after insert on sells deferrable initially deferred for each row execute function trigger1();
 
-create or replace function trigger2_1()
+create or replace function trigger2()
 returns trigger as $$
 declare count_unique integer;
 		count_order integer;	
 begin
 	select count(distinct orderline.order_id) INTO count_unique from orderline;
 	select count(distinct orders.id) INTO count_order from orders;
-	raise notice 'count_unique = %', count_unique;
 	if count_order > count_unique then
 		raise exception 'Constraint Violated, Each order needs to include one or more product';
 		return null;
@@ -48,24 +46,7 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger order_constraint1 after insert on orderline deferrable initially deferred for each row execute function trigger2_1();
-
-create or replace function trigger2_2()
-returns trigger as $$
-declare count integer;
-
-begin
-	select count(*) INTO count from orderline;
-	raise notice 'count = %', count;
-	if count = 0 then
-		raise exception '2_2() Constraint Violated, Each order needs to include one or more product';
-		return null;
-	end if;
-	return new;
-end;
-$$ language plpgsql;
-
-create constraint trigger order_constraint2 after insert on orderline not deferrable initially immediate for each row execute function trigger2_2();
+create constraint trigger order_constraint after insert on orderline deferrable initially deferred for each row execute function trigger2();
 
 create or replace function trigger3()
 returns trigger as $$

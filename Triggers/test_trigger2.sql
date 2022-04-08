@@ -71,7 +71,7 @@ INSERT INTO orders (id, user_id, coupon_id) VALUES
 ;
 
 INSERT INTO orderline (order_id, shop_id, product_id, sell_timestamp, quantity) VALUES
-(1, 1, 1, '2022-04-04 16:07:14.426782', 10),
+(2, 1, 1, '2022-04-04 16:07:14.426782', 10),
 (2, 2, 2, '2022-04-04 16:07:14.426782', 10),
 (3, 3, 3, '2022-04-04 16:07:14.426782', 10)
 ;
