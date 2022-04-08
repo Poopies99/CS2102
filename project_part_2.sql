@@ -1,5 +1,9 @@
 -- Qn 2.2 (1)
 
+drop function if exists view_comments;
+drop function if exists get_most_returned_products_from_manufacturer;
+drop function if exists get_worst_shops;
+
 create or replace function view_comments(shop_id_p INTEGER, product_id_p INTEGER, sell_timestamp_p TIMESTAMP)
     returns table(username TEXT, content TEXT, rating INTEGER, comment_timestamp TIMESTAMP)
     language plpgsql 

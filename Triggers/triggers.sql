@@ -1,18 +1,18 @@
-drop trigger shop_constraint on sells;
-drop trigger order_constraint on orderline;
-drop trigger coupon_constraint on orders;
-drop trigger refund_constraint1 on refund_request;
-drop trigger refund_constraint2 on refund_request;
-drop trigger refund_constraint3 on refund_request;
-drop trigger comment_constraint1 on review;
-drop trigger comment_constraint2 on reply;
-drop trigger comment_constraint3 on review;
-drop trigger comment_constraint4 on reply;
-drop trigger comment_constraint5 on review;
-drop trigger complaint_constraint1 on delivery_complaint;
-drop trigger complaint_constraint2 on delivery_complaint;
-drop trigger complaint_constraint3 on comment_complaint;
-drop trigger complaint_constraint4 on shop_complaint;
+drop trigger if exists shop_constraint on sells;
+drop trigger if exists order_constraint on orderline;
+drop trigger if exists coupon_constraint on orders;
+drop trigger if exists refund_constraint1 on refund_request;
+drop trigger if exists refund_constraint2 on refund_request;
+drop trigger if exists refund_constraint3 on refund_request;
+drop trigger if exists comment_constraint1 on review;
+drop trigger if exists comment_constraint2 on reply;
+drop trigger if exists comment_constraint3 on review;
+drop trigger if exists comment_constraint4 on reply;
+drop trigger if exists comment_constraint5 on review;
+drop trigger if exists complaint_constraint1 on delivery_complaint;
+drop trigger if exists complaint_constraint2 on delivery_complaint;
+drop trigger if exists complaint_constraint3 on comment_complaint;
+drop trigger if exists complaint_constraint4 on shop_complaint;
 
 create or replace function trigger1()
 returns trigger as $$
@@ -29,7 +29,7 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger shop_constraint after insert on sells deferrable initially deferred for each row execute function trigger1();
+create constraint trigger shop_constraint after insert on sells deferrable initially immediate for each row execute function trigger1();
 
 create or replace function trigger2()
 returns trigger as $$
@@ -46,7 +46,7 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger order_constraint after insert on orderline deferrable initially deferred for each row execute function trigger2();
+create constraint trigger order_constraint after insert on orderline deferrable initially immediate for each row execute function trigger2();
 
 create or replace function trigger3()
 returns trigger as $$
@@ -174,7 +174,7 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger comment_constraint4 after insert on reply deferrable initially deferred for each row execute function trigger9();
+create constraint trigger comment_constraint4 after insert on reply deferrable initially immediate for each row execute function trigger9();
 
 create or replace function trigger10()
 returns trigger as $$
@@ -189,7 +189,7 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger comment_constraint5 after insert on review deferrable initially deferred for each row execute function trigger10();
+create constraint trigger comment_constraint5 after insert on review deferrable initially immediate for each row execute function trigger10();
 
 create or replace function trigger11()
 returns trigger as $$
@@ -219,7 +219,7 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger complaint_constraint2 after insert on delivery_complaint deferrable initially deferred for each row execute function trigger12_1();
+create constraint trigger complaint_constraint2 after insert on delivery_complaint deferrable initially immediate for each row execute function trigger12_1();
 
 create or replace function trigger12_2()
 returns trigger as $$
@@ -234,7 +234,7 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger complaint_constraint3 after insert on comment_complaint deferrable initially deferred for each row execute function trigger12_2();
+create constraint trigger complaint_constraint3 after insert on comment_complaint deferrable initially immediate for each row execute function trigger12_2();
 
 create or replace function trigger12_3()
 returns trigger as $$
@@ -249,4 +249,4 @@ begin
 end;
 $$ language plpgsql;
 
-create constraint trigger complaint_constraint4 after insert on shop_complaint deferrable initially deferred for each row execute function trigger12_3();
+create constraint trigger complaint_constraint4 after insert on shop_complaint deferrable initially immediate for each row execute function trigger12_3();
