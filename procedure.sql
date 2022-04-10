@@ -2,10 +2,6 @@ drop procedure if exists reply;
 drop procedure if exists place_order;
 drop procedure if exists review;
 
-drop procedure if exists reply;
-drop procedure if exists place_order;
-drop procedure if exists review;
-
 CREATE OR REPLACE PROCEDURE place_order(input_user_id INTEGER, input_coupon_id INTEGER, input_shipping_address TEXT, input_shop_ids INTEGER[], input_product_ids INTEGER[], input_sell_timestamps TIMESTAMP[], input_quantities INTEGER[], input_shipping_costs NUMERIC[])
 AS $$
 DECLARE
